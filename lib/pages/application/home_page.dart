@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/authentication/notify/authentication_provider.dart';
 import 'package:flutter_app/services/AuthService.dart';
-import 'package:flutter_app/utils/DialogUtils.dart';
-import 'package:flutter_app/utils/SnackbarUtils.dart';
+import 'package:flutter_app/utils/dialog_utils.dart';
+import 'package:flutter_app/utils/snackbar_utils.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {

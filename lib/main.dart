@@ -4,7 +4,7 @@ import 'package:flutter_app/firebase_options.dart';
 import 'package:flutter_app/pages/authentication/notify/authentication_provider.dart';
 import 'package:flutter_app/routes/AppRouteBuilder.dart';
 import 'package:flutter_app/themes/light_mode.dart';
-import 'package:flutter_app/utils/SnackbarUtils.dart';
+import 'package:flutter_app/utils/snackbar_utils.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
