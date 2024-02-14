@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/authentication/notify/authentication_provider.dart';
-import 'package:flutter_app/services/AuthService.dart';
+import 'package:flutter_app/services/auth/auth_service.dart';
 import 'package:flutter_app/utils/dialog_utils.dart';
 import 'package:flutter_app/utils/snackbar_utils.dart';
 import 'package:provider/provider.dart';

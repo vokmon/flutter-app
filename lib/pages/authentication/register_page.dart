@@ -1,8 +1,19 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/services/auth/auth_service.dart';
+import 'package:flutter_app/utils/dialog_utils.dart';
+import 'package:flutter_app/utils/snackbar_utils.dart';
 import 'package:go_router/go_router.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -10,96 +21,155 @@ class RegisterPage extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
     TextEditingController confirmPasswordController = TextEditingController();
 
-    return Scaffold(
-        // Define the color from theme object
-        // backgroundColor: Theme.of(context).colorScheme.background,
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // logo
-          Icon(Icons.message, size: 60),
+    void registerUser() async {
+      bool isValid = _formKey.currentState!.validate();
+      if (!isValid) {
+        return;
+      }
 
-          SizedBox(height: 50),
-          // welcome back message
-          Text(
-            "Let's create an account",
-            style: TextStyle(
-                // color: Theme.of(context).colorScheme.primary
-                // fontSize: 16,
-                ),
-          ),
+      // auth service
+      DialogUtils.displayDialog(context, 'Registering your account...');
+      final authService = AuthService();
+      try {
+        await authService.register(
+            email: emailController.text, password: passwordController.text);
+      } catch (e) {
+        SnackbarUtils.showErrornSnackBar(e.toString());
+      } finally {
+        // ignore: use_build_context_synchronously
+        context.pop();
+      }
+    }
 
-          SizedBox(height: 25),
+    return Form(
+      key: _formKey,
+      child: Scaffold(
+          // Define the color from theme object
+          // backgroundColor: Theme.of(context).colorScheme.background,
+          body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // logo
+            Icon(Icons.message, size: 60),
 
-          // email textfield
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(
-              controller: emailController,
-              decoration: InputDecoration(hintText: "Email"),
+            SizedBox(height: 50),
+            // welcome back message
+            Text(
+              "Let's create an account",
+              style: TextStyle(
+                  // color: Theme.of(context).colorScheme.primary
+                  // fontSize: 16,
+                  ),
             ),
-          ),
 
-          SizedBox(height: 25),
+            SizedBox(height: 25),
 
-          // pw textfield
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(
-              controller: passwordController,
-              decoration: InputDecoration(hintText: "Password"),
-              obscureText: true,
+            // email textfield
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25),
+              child: TextFormField(
+                controller: emailController,
+                decoration: InputDecoration(hintText: "Email"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter email';
+                  }
+                  if (!EmailValidator.validate(value)) {
+                    return 'Please a valid enter email';
+                  }
+
+                  return null;
+                },
+              ),
             ),
-          ),
 
-          SizedBox(height: 25),
+            SizedBox(height: 25),
 
-          // pw textfield
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(
-              controller: confirmPasswordController,
-              decoration: InputDecoration(hintText: "Confirm Password"),
-              obscureText: true,
+            // pw textfield
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25),
+              child: TextFormField(
+                controller: passwordController,
+                decoration: InputDecoration(hintText: "Password"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter password';
+                  }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  if (value != confirmPasswordController.text) {
+                    return 'Password and Confirm Password must be the same';
+                  }
+                  return null;
+                },
+                obscureText: true,
+              ),
             ),
-          ),
 
-          // login button
-          SizedBox(height: 40),
+            SizedBox(height: 25),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: FilledButton(onPressed: () => {}, child: Text("Register")
+            // pw textfield
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25),
+              child: TextFormField(
+                controller: confirmPasswordController,
+                decoration: InputDecoration(hintText: "Confirm Password"),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter confirm password';
+                  }
+                  if (value.length < 6) {
+                    return 'Confirm password must be at least 6 characters';
+                  }
+                  if (value != passwordController.text) {
+                    return 'Password and Confirm Password must be the same';
+                  }
+                  return null;
+                },
+              ),
+            ),
+
+            // login button
+            SizedBox(height: 40),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: FilledButton.icon(
+                onPressed: registerUser,
+                label: Text("Register"),
+                icon: Icon(Icons.supervised_user_circle),
                 // style: ElevatedButton.styleFrom(
                 //   minimumSize: const Size.fromHeight(30), // NEW
-                ),
-          ),
+              ),
+            ),
 
-          // register now
-          SizedBox(height: 40),
+            // register now
+            SizedBox(height: 40),
 
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text("Already have an account? "),
-                  GestureDetector(
-                    onTap: () =>
-                        {context.pop('/auth/login')},
-                    child: Text(
-                      "Sign in",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary),
-                    ),
-                  )
-                ],
-              )),
-        ],
-      ),
-    ));
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text("Already have an account? "),
+                    GestureDetector(
+                      onTap: () => {context.pop('/auth/login')},
+                      child: Text(
+                        "Sign in",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                    )
+                  ],
+                )),
+          ],
+        ),
+      )),
+    );
   }
 }

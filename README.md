@@ -26,13 +26,17 @@ flutter emulators --launch apple_ios_simulator
 
 flutter devices
 flutter run
-flutter run -d chrome
+flutter run -d chrome --web-port 5000 --dart-define-from-file=lib/config/dev/web_config.json
 flutter run -d macos
-flutter run -d 2F756D02-877E-4B39-A890-1EB90D5EEC7D (device id of iphone)
+flutter run -d 2F756D02-877E-4B39-A890-1EB90D5EEC7D --dart-define-from-file=lib/config/dev/ios_config.json (device id of iphone)
 
 
 Firebase project
 https://console.firebase.google.com/project/flutter-app-ab2c9/overview
+
+GCP
+https://console.cloud.google.com/apis/credentials/oauthclient/1059213750252-gn2hqk8iliel04r01bael2tbkh0514bn.apps.googleusercontent.com?authuser=0&hl=en&project=flutter-app-ab2c9
+
 npm install -g firebase-tools
 firebase login
 flutter pub global activate flutterfire_cli
@@ -41,6 +45,12 @@ flutterfire configure
 
 flutter pub add firebase_core
 flutter pub add firebase_auth
+
+Environment variables are defined in
+config/*
+For web, get OAuth client id from
+https://console.cloud.google.com/apis/credentials/oauthclient/1059213750252-gn2hqk8iliel04r01bael2tbkh0514bn.apps.googleusercontent.com?authuser=0&hl=en&project=flutter-app-ab2c9
+
 
 Building apps
 Nested Nav: 
@@ -51,3 +61,10 @@ https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/red
 Provider:
 https://pub.dev/packages/provider/install
 flutter pub add provider
+
+Google sign in
+https://pub.dev/packages/google_sign_in/install
+flutter pub add google_sign_in
+
+Add key fingerprint for android
+https://developers.google.com/android/guides/client-auth
