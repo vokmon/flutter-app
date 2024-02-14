@@ -30,12 +30,18 @@ flutter run -d chrome --web-port 5000 --dart-define-from-file=lib/config/dev/web
 flutter run -d macos
 flutter run -d 2F756D02-877E-4B39-A890-1EB90D5EEC7D --dart-define-from-file=lib/config/dev/ios_config.json (device id of iphone)
 
+flutter run -d emulator-5554 --dart-define-from-file=lib/config/dev/android_config.json (device id of android)
+
 
 Firebase project
 https://console.firebase.google.com/project/flutter-app-ab2c9/overview
 
 GCP
+(Web)
 https://console.cloud.google.com/apis/credentials/oauthclient/1059213750252-gn2hqk8iliel04r01bael2tbkh0514bn.apps.googleusercontent.com?authuser=0&hl=en&project=flutter-app-ab2c9
+
+(Android)
+https://console.cloud.google.com/apis/credentials/key/c4100b73-de1e-4e62-b861-75f930981909?authuser=0&hl=en&project=flutter-app-ab2c9
 
 npm install -g firebase-tools
 firebase login
@@ -68,3 +74,6 @@ flutter pub add google_sign_in
 
 Add key fingerprint for android
 https://developers.google.com/android/guides/client-auth
+
+Enable api
+https://console.developers.google.com/apis/api/people.googleapis.com/overview?project=1059213750252

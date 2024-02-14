@@ -46,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
         DialogUtils.displayDialog(context, 'Signing in...');
         await GoogleAuthProviderService.signInWithGoogle();
       } catch (e) {
+        print(e);
         SnackbarUtils.showErrornSnackBar(e.toString());
       } finally {
         // ignore: use_build_context_synchronously

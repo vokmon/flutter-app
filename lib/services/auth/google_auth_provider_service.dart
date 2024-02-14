@@ -9,6 +9,7 @@ class GoogleAuthProviderService {
     final GoogleSignInAccount? gUser =
         await GoogleSignIn(clientId: clientId).signIn();
 
+  
     // obtain auth details from request
     final GoogleSignInAuthentication gAuth = await gUser!.authentication;
 
