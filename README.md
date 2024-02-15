@@ -27,7 +27,7 @@ flutter emulators --launch apple_ios_simulator
 flutter devices
 flutter run
 flutter run -d chrome --web-port 5000 --dart-define-from-file=lib/config/dev/web_config.json
-flutter run -d macos
+flutter run -d macos --dart-define-from-file=lib/config/dev/mac_config.json
 flutter run -d 2F756D02-877E-4B39-A890-1EB90D5EEC7D --dart-define-from-file=lib/config/dev/ios_config.json (device id of iphone)
 
 flutter run -d emulator-5554 --dart-define-from-file=lib/config/dev/android_config.json (device id of android)
@@ -57,6 +57,12 @@ config/*
 For web, get OAuth client id from
 https://console.cloud.google.com/apis/credentials/oauthclient/1059213750252-gn2hqk8iliel04r01bael2tbkh0514bn.apps.googleusercontent.com?authuser=0&hl=en&project=flutter-app-ab2c9
 
+For android
+https://console.cloud.google.com/apis/credentials/oauthclient/1059213750252-1fil0t2687n8qh29i8onis17r550beue.apps.googleusercontent.com?authuser=0&hl=en&project=flutter-app-ab2c9
+
+
+For google provider service sign in
+Client id of android and web are the same
 
 Building apps
 Nested Nav: 

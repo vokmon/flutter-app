@@ -1,5 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/components/auth/login_providers_widget.dart';
+import 'package:flutter_app/components/container/constrainted_mobile_width_container_widget.dart';
 import 'package:flutter_app/services/auth/auth_service.dart';
 import 'package:flutter_app/utils/dialog_utils.dart';
 import 'package:flutter_app/utils/snackbar_utils.dart';
@@ -43,132 +45,132 @@ class _RegisterPageState extends State<RegisterPage> {
 
     return Form(
       key: _formKey,
-      child: Scaffold(
-          // Define the color from theme object
-          // backgroundColor: Theme.of(context).colorScheme.background,
-          body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // logo
-            Icon(Icons.message, size: 60),
+      child: ConstrainedMobileWidth(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(height: 20),
+          // logo
+          Icon(Icons.message, size: 50),
 
-            SizedBox(height: 50),
-            // welcome back message
-            Text(
-              "Let's create an account",
-              style: TextStyle(
-                  // color: Theme.of(context).colorScheme.primary
-                  // fontSize: 16,
-                  ),
+          SizedBox(height: 40),
+          // welcome back message
+          Text(
+            "Let's create an account",
+            style: TextStyle(
+                // color: Theme.of(context).colorScheme.primary
+                // fontSize: 16,
+                ),
+          ),
+
+          SizedBox(height: 20),
+
+          // email textfield
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            child: TextFormField(
+              controller: emailController,
+              decoration: InputDecoration(hintText: "Email"),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter email';
+                }
+                if (!EmailValidator.validate(value)) {
+                  return 'Please a valid enter email';
+                }
+
+                return null;
+              },
             ),
+          ),
 
-            SizedBox(height: 25),
+          SizedBox(height: 20),
 
-            // email textfield
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25),
-              child: TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(hintText: "Email"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter email';
-                  }
-                  if (!EmailValidator.validate(value)) {
-                    return 'Please a valid enter email';
-                  }
-
-                  return null;
-                },
-              ),
+          // pw textfield
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            child: TextFormField(
+              controller: passwordController,
+              decoration: InputDecoration(hintText: "Password"),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter password';
+                }
+                if (value.length < 6) {
+                  return 'Password must be at least 6 characters';
+                }
+                if (value != confirmPasswordController.text) {
+                  return 'Password and Confirm Password must be the same';
+                }
+                return null;
+              },
+              obscureText: true,
             ),
+          ),
 
-            SizedBox(height: 25),
+          SizedBox(height: 20),
 
-            // pw textfield
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25),
-              child: TextFormField(
-                controller: passwordController,
-                decoration: InputDecoration(hintText: "Password"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter password';
-                  }
-                  if (value.length < 6) {
-                    return 'Password must be at least 6 characters';
-                  }
-                  if (value != confirmPasswordController.text) {
-                    return 'Password and Confirm Password must be the same';
-                  }
-                  return null;
-                },
-                obscureText: true,
-              ),
+          // pw textfield
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            child: TextFormField(
+              controller: confirmPasswordController,
+              decoration: InputDecoration(hintText: "Confirm Password"),
+              obscureText: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter confirm password';
+                }
+                if (value.length < 6) {
+                  return 'Confirm password must be at least 6 characters';
+                }
+                if (value != passwordController.text) {
+                  return 'Password and Confirm Password must be the same';
+                }
+                return null;
+              },
             ),
+          ),
 
-            SizedBox(height: 25),
+          // login button
+          SizedBox(height: 30),
 
-            // pw textfield
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25),
-              child: TextFormField(
-                controller: confirmPasswordController,
-                decoration: InputDecoration(hintText: "Confirm Password"),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter confirm password';
-                  }
-                  if (value.length < 6) {
-                    return 'Confirm password must be at least 6 characters';
-                  }
-                  if (value != passwordController.text) {
-                    return 'Password and Confirm Password must be the same';
-                  }
-                  return null;
-                },
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: FilledButton.icon(
+              onPressed: registerUser,
+              label: Text("Register"),
+              icon: Icon(Icons.supervised_user_circle),
+              // style: ElevatedButton.styleFrom(
+              //   minimumSize: const Size.fromHeight(30), // NEW
             ),
+          ),
 
-            // login button
-            SizedBox(height: 40),
+          // register now
+          SizedBox(height: 30),
 
-            Padding(
+          Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: FilledButton.icon(
-                onPressed: registerUser,
-                label: Text("Register"),
-                icon: Icon(Icons.supervised_user_circle),
-                // style: ElevatedButton.styleFrom(
-                //   minimumSize: const Size.fromHeight(30), // NEW
-              ),
-            ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("Already have an account? "),
+                  GestureDetector(
+                    onTap: () => {context.pop('/auth/login')},
+                    child: Text(
+                      "Sign in",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
+                  )
+                ],
+              )),
 
-            // register now
-            SizedBox(height: 40),
-
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text("Already have an account? "),
-                    GestureDetector(
-                      onTap: () => {context.pop('/auth/login')},
-                      child: Text(
-                        "Sign in",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.primary),
-                      ),
-                    )
-                  ],
-                )),
-          ],
-        ),
+          SizedBox(height: 30),
+          LoginProvidersWidget(),
+        ],
       )),
     );
   }
