@@ -5,8 +5,8 @@ import 'package:flutter_app/utils/dialog_utils.dart';
 import 'package:flutter_app/utils/snackbar_utils.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {

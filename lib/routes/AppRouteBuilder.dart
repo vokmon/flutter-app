@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 const loginPage = LoginPage();
 const registerPage = RegisterPage();
 String _initialLocation = AuthenticationFlow.initialLocation;
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 var defaultRoutes = <RouteBase>[
   GoRoute(
@@ -39,11 +40,13 @@ class AppRouteBuilder {
     GoRouter router = GoRouter(
       routes: routesToUse,
       initialLocation: initialLocation,
+      navigatorKey: _rootNavigatorKey,
       // errorBuilder: (context, state) => Center(
       //       child: Text('Oops! Something went wrong. ${state.error}'),
       //     )
       errorPageBuilder: (BuildContext context, GoRouterState state) =>
-          ErrorPage.getErrorPage(context, state, initialLocation),
+          ErrorPage.getErrorPage(context, state, initialLocation,
+              'Please login first.'),
     );
     return router;
   }

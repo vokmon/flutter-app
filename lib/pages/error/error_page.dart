@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 class ErrorPage {
   static MaterialPage<dynamic> getErrorPage(
-      BuildContext context, GoRouterState state, String location) {
+      BuildContext context, GoRouterState state, String location, String errorMessage) {
     return MaterialPage(
       key: ValueKey('errorPage'),
       child: Scaffold(
@@ -14,7 +14,7 @@ class ErrorPage {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('An error occurred. Please try again later.'),
+                Text(errorMessage),
                 SizedBox(height: 50),
                 FilledButton(
                     onPressed: () {
