@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/application/app-components/app_app_bar.dart';
 import 'package:flutter_app/pages/application/app-components/app_drawer.dart';
+import 'package:flutter_app/pages/application/app_route_config.dart';
 import 'package:go_router/go_router.dart';
 
 class AppContainer extends StatelessWidget {
@@ -11,8 +12,13 @@ class AppContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? title = homeRouteConfig
+        .where((element) => element.name == state.matchedLocation)
+        .first
+        .title;
+
     return Scaffold(
-      appBar: AppAppbar(title: state.matchedLocation),
+      appBar: AppAppbar(title: title ?? ""),
       drawer: AppDrawer(matchedLocation: state.matchedLocation),
       body: Center(
         child: child,
