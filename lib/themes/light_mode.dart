@@ -24,6 +24,8 @@ ThemeData lightModeTheme = ThemeData(
       selectedTileColor: darkText,
       selectedColor: tertiary,
       titleTextStyle: TextStyle(fontSize: 18)),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      unselectedItemColor: primaryText, selectedItemColor: primary),
   iconTheme: IconThemeData(color: primary),
   textTheme: TextTheme(bodyMedium: TextStyle(fontSize: 16, color: primary)),
   inputDecorationTheme: InputDecorationTheme(

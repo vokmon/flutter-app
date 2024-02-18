@@ -13,13 +13,16 @@ class AppContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? title = homeRouteConfig
-        .where((element) => element.name == state.matchedLocation)
+        .where((element) => state.matchedLocation.contains(element.name!))
         .first
         .title;
 
     return Scaffold(
       appBar: AppAppbar(title: title ?? ""),
-      drawer: AppDrawer(matchedLocation: state.matchedLocation),
+      drawer: AppDrawer(
+        matchedLocation: state.matchedLocation,
+        configs: homeRouteConfig,
+      ),
       body: Center(
         child: child,
       ),

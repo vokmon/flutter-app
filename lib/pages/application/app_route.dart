@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/application/app-components/app_container.dart';
 import 'package:flutter_app/pages/application/app_route_config.dart';
 import 'package:flutter_app/pages/authentication/notify/authentication_provider.dart';
+import 'package:flutter_app/utils/route_utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -32,11 +33,6 @@ class AppRoute {
             navigatorKey: _shellNavigatorKey,
             builder: (context, state, child) =>
                 AppContainer(state: state, child: child),
-            routes: homeRouteConfig
-                .where((element) =>
-                    element.isExpanded == null || element.isExpanded == false)
-                .map((e) =>
-                    GoRoute(path: e.path!, name: e.name!, builder: e.builder))
-                .toList()),
+            routes: RouteUtils.buildRoutes(homeRouteConfig)),
       ]);
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/models/routes/route_model.dart';
 import 'package:flutter_app/pages/application/dashboard/dashboard-page.dart';
 import 'package:flutter_app/pages/application/navigation-demo/navigation_demo_page.dart';
+import 'package:flutter_app/pages/application/navigation-demo/navigation_demo_routes.dart';
 import 'package:flutter_app/pages/application/profile/profile_page.dart';
 import 'package:flutter_app/pages/application/settings/settings_page.dart';
 
@@ -18,7 +19,9 @@ final homeRouteConfig = <RouteModel>[
     path: 'navigation-demo',
     title: 'Navigation Demo',
     iconData: Icons.multiple_stop,
-    builder: (context, state) => NavigationDemoPage(),
+    shellRouteBuilder: (context, state, child) =>
+        NavigationDemoPage(context: context, state: state, child: child),
+    routes: navigationDemoRouteConfig,
   ),
   RouteModel(
       name: 'profile',
@@ -37,10 +40,3 @@ final homeRouteConfig = <RouteModel>[
     builder: (context, state) => SettingsPage(),
   ),
 ];
-
-// final bottomRouteConfig = <RouteModel>[
-//   RouteModel(
-//       title: 'Logout',
-//       iconData: Icons.logout,
-//       builder: (context, state) => ProfilePage()),
-// ];

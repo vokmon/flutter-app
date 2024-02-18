@@ -10,6 +10,8 @@ class RouteModel {
   IconData? iconData;
   GoRouterWidgetBuilder? builder;
   bool? isExpanded;
+  List<RouteModel>? routes;
+  ShellRouteBuilder? shellRouteBuilder;
 
   RouteModel({
     this.path,
@@ -18,5 +20,7 @@ class RouteModel {
     this.iconData,
     this.builder,
     this.isExpanded,
+    this.routes,
+    this.shellRouteBuilder,
   });
 }
