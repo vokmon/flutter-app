@@ -26,8 +26,16 @@ var defaultRoutes = <RouteBase>[
 ];
 
 class AppRouteBuilder {
+  static GoRouter? _router;
+
   static GoRouter getRoutes(BuildContext context) {
     User? user = context.watch<AuthenticationProvider>().user;
+
+    // If the user is already logged in and the provide at the top level is changed,
+    // we don't want to re-create the router object again.
+    if (user != null && _router != null) {
+      return _router!;
+    }
 
     var routesToUse = defaultRoutes;
     String initialLocation = _initialLocation;
@@ -45,9 +53,15 @@ class AppRouteBuilder {
       //       child: Text('Oops! Something went wrong. ${state.error}'),
       //     )
       errorPageBuilder: (BuildContext context, GoRouterState state) =>
-          ErrorPage.getErrorPage(context, state, initialLocation,
-              'Please login first.'),
+          ErrorPage.getErrorPage(
+              context, state, initialLocation, 'Please login first.'),
     );
+
+    if (user != null) {
+      _router = router;
+    } else {
+      _router = null;
+    }
     return router;
   }
 

@@ -13,7 +13,10 @@ class AppContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? title = homeRouteConfig
-        .where((element) => state.matchedLocation.contains(element.name!))
+        .where((element) {
+          return element.name != null &&
+              state.matchedLocation.contains(element.name!);
+        })
         .first
         .title;
 

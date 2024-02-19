@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/firebase_options.dart';
 import 'package:flutter_app/pages/authentication/notify/authentication_provider.dart';
 import 'package:flutter_app/routes/AppRouteBuilder.dart';
-import 'package:flutter_app/themes/light_mode.dart';
+import 'package:flutter_app/themes/theme_provider.dart';
 import 'package:flutter_app/utils/snackbar_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +15,10 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => authenticationProvider),
+        ChangeNotifierProvider<AuthenticationProvider>(create: (_) => authenticationProvider),
+        ChangeNotifierProvider<ThemeProvider>(
+          create: (context) => ThemeProvider(),
+        )
       ],
       child: MyApp(
         authenticationProvider: authenticationProvider,
@@ -35,15 +38,12 @@ class MyApp extends StatelessWidget {
     /**
      * Provide AuthenticationProvider to rebuild the routes based on user's state and roles
      */
-    return ChangeNotifierProvider<AuthenticationProvider>.value(
-      value: authenticationProvider,
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        scaffoldMessengerKey: SnackbarUtils.messengerKey,
-        title: 'Flutter Demo',
-        theme: lightModeTheme,
-        routerConfig: AppRouteBuilder.getRoutes(context),
-      ),
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      scaffoldMessengerKey: SnackbarUtils.messengerKey,
+      title: 'Flutter Demo',
+      theme: Provider.of<ThemeProvider>(context).themeData,
+      routerConfig: AppRouteBuilder.getRoutes(context),
     );
   }
 }
