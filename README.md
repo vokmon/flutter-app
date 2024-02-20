@@ -87,3 +87,8 @@ https://console.developers.google.com/apis/api/people.googleapis.com/overview?pr
 
 App Icon
 https://pub.dev/packages/flutter_launcher_icons
+
+
+App Splash Screen
+dart run flutter_native_splash:create
+https://pub.dev/packages/flutter_native_splash

@@ -5,12 +5,19 @@ import 'package:flutter_app/pages/authentication/notify/authentication_provider.
 import 'package:flutter_app/routes/AppRouteBuilder.dart';
 import 'package:flutter_app/themes/theme_provider.dart';
 import 'package:flutter_app/utils/snackbar_utils.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+  // Display splash screen
   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
+  // Remove splash screen
+  FlutterNativeSplash.remove();
   runApp(
     MultiProvider(
       providers: [
