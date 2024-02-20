@@ -11,26 +11,22 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  AuthenticationProvider authenticationProvider = AuthenticationProvider();
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthenticationProvider>(create: (_) => authenticationProvider),
+        ChangeNotifierProvider<AuthenticationProvider>(
+            create: (_) => AuthenticationProvider()),
         ChangeNotifierProvider<ThemeProvider>(
           create: (context) => ThemeProvider(),
         )
       ],
-      child: MyApp(
-        authenticationProvider: authenticationProvider,
-      ),
+      child: MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final AuthenticationProvider authenticationProvider;
-
-  const MyApp({super.key, required this.authenticationProvider});
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
