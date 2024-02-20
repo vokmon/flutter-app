@@ -83,3 +83,7 @@ https://developers.google.com/android/guides/client-auth
 
 Enable api
 https://console.developers.google.com/apis/api/people.googleapis.com/overview?project=1059213750252
+
+
+App Icon
+https://pub.dev/packages/flutter_launcher_icons
