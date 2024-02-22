@@ -86,6 +86,7 @@ https://console.developers.google.com/apis/api/people.googleapis.com/overview?pr
 
 
 App Icon
+flutter pub run flutter_launcher_icons
 https://pub.dev/packages/flutter_launcher_icons
 
 

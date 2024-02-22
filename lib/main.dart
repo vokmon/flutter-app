@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 
 void main() async {
   // Display splash screen
-  WidgetsFlutterBinding.ensureInitialized();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
